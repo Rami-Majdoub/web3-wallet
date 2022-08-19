@@ -1,16 +1,67 @@
-<h1>greeting</h1>
-<span>a web3 demo app</span><br />
-<a target="_blank" href="https://rinkeby.etherscan.io/address/0xacf9a42920dfb9f2639745a5d72ce6b04aaeab24">check the contract</a><br /><br />
+<mat-toolbar color="primary">
+  <span>My Wallets</span>
+</mat-toolbar>
 
-<h2> Step 1: check the stored value </h2>
-<button (click)="get()">get value</button> current value of greet: {{ currentGreetValue }} <br />
+<div class="content">
 
-<h2> Step 2: change greet value </h2>
-<h3> Step 2.1: connect your account </h3>
+<mat-card>
+  <mat-card-title>Why My Wallets</mat-card-title>
+  <mat-card-content>
+    Metamask and other wallets generate new accounts from the same mnemonic phrase (generated after installing the wallet).
+    <br />
+    If the mnemonic phrase gets exposed, all of the accounts associated with it are exposed.
+    <br />
+    <br />
+    To get a new mnemonic phrase, without this app, you have to
+    <ol>
+      <li>write down the mnemonic phrase (or all the private keys of each account you have created)</li>
+      <li>reset the app (deletes all the data)</li>
+      <li>generate a new mnemonic phrase</li>
+      <li>import your accounts (MetaMask allows importation by private key only)</li>
+    </ol>
+    <br />
+    <b>WARNING: keep your mnemonic phrase and private keys very secure.</b>
+    <br />
+  </mat-card-content>
+</mat-card>
 
-<button (click)="connect()">connect to metamask</button> {{ account }} <br />
 
-<h3> Step 2.2: change greet vaule  </h3>
-<input [(ngModel)]="newGreetValue" placeholder="greet"> 
-<button (click)="set()">change value</button><br />
+<button mat-raised-button (click)="newMne()">New Wallet</button><br />
+<br />
 
+<form class="example-form">
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>mnemonic</mat-label>
+  <textarea matInput [(ngModel)]="txt1" name="mnemonic"></textarea>
+</mat-form-field>
+<br />
+
+<mat-form-field  class="example-full-width" appearance="fill">
+  <mat-label>number of accounts</mat-label>
+  <input matInput type="number" min="1" [(ngModel)]="nbAccounts" name="nbAccounts" />
+</mat-form-field>
+
+<mat-form-field  class="example-full-width" appearance="fill">
+  <mat-label>start with account with the index of</mat-label>
+  <input matInput type="number" min="0" [(ngModel)]="initialIndex" name="initialIndex" />
+</mat-form-field>
+
+<button mat-raised-button (click)="accountInfos()">Get Infos</button><br />
+<br />
+
+<div *ngFor="let account of accounts">
+  <mat-card>
+  	<mat-card-subtitle>{{ account.address }}</mat-card-subtitle>
+  	<mat-card-content>
+  	  Private Key: {{ account.privateKey }}
+  	</mat-card-content>
+  	<mat-card-actions>
+      <a mat-stroked-button href="https://etherscan.io/address/{{ account.address }}" target="_blank">See on etherscan</a>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+</form>
+
+<div>
+<br />

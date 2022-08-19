@@ -7,24 +7,23 @@ import { ContractService } from 'src/app/services/contract-service.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'greeter';
+  txt1 = '';
+  initialIndex = 0;
+  nbAccounts = 1;
   
   constructor(
     public contractService_: ContractService 
   ){}
   
-  account = 'not connected';
-  async connect(){
-    this.account = await this.contractService_.connectAccount();
+  async newMne(){
+    this.txt1 = await this.contractService_.newMnemonic();
   }
   
-  async get(){
-    this.currentGreetValue = await this.contractService_.getGreet();
+  accounts: any[] = [];
+  
+  async accountInfos(){
+    this.accounts = [];
+    this.accounts = await this.contractService_.accountInfos(this.txt1, this.nbAccounts, this.initialIndex);
   }
   
-  currentGreetValue = '';
-  newGreetValue = '';
-  async set(){
-    await this.contractService_.setGreet(this.newGreetValue);
-  }
 }

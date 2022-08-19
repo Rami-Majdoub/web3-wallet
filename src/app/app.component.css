@@ -1,0 +1,20 @@
+.example-form {
+  min-width: 150px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+mat-toolbar {
+  margin-bottom: 12px;
+}
+
+.content {
+  margin-left: 10%;
+  width: 80%;
+}
+
+mat-card {
+  margin-bottom: 12px;
+}

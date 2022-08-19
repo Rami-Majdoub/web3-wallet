@@ -4,44 +4,38 @@ import { Injectable } from '@angular/core';
 //import Web3 from "web3";
 
 import { ethers } from "ethers";
-import { contract_address, contract_abi } from 'src/app/abis'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
-  provider: any;
-  contract: any;
-  signer: any;
 
-  constructor() {
-    this.provider = new ethers.providers.Web3Provider(window.ethereum);
-    this.contract = new ethers.Contract(contract_address, contract_abi, this.provider);
-  }
+  constructor() {}
 
-  async connectAccount() {
-    // ask metamask to connect
-    await this.provider.send("eth_requestAccounts", []);
-    this.signer = this.provider.getSigner();
-    // connect returns a new contract connected to the signer
-    this.contract = this.contract.connect(this.signer);
-    
-    // the connected address
-    return await this.signer.getAddress();
-    
-    // get
-    // console.log(await this.contract.greet());
-    // set
-    // console.log(await this.contract.setGreeting("ok"));
+  async newMnemonic(): Promise<string> {
+    const { mnemonic: { phrase: mnemonicPhrase } } = ethers.Wallet.createRandom()
+    return mnemonicPhrase;
   }
   
-  async getGreet(): Promise<string> {
-    return await this.contract.greet();
+  async accountInfos(
+    mnemonic: string,
+    count: number = 3,
+    initialIndex: number = 0,
+    path: string = "m/44'/60'/0'/0/",
+    passphrase: string = ""
+  ){
+  	let result: any[] = []
+    Array(count).fill(0).map((_, i) => {
+      const PATH = path + (i + initialIndex).toString()
+      const wallet = ethers.Wallet.fromMnemonic(mnemonic, PATH)
+
+      result.push({
+      	address: wallet.address,
+		privateKey: wallet.privateKey,
+	  })
+    })
+    return result;
   }
   
-  async setGreet(newVal: string) {
-    await this.contract.setGreeting(newVal);
-  }
-
 }
 
