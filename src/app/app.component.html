@@ -1,0 +1,16 @@
+<h1>greeting</h1>
+<span>a web3 demo app</span><br />
+<a target="_blank" href="https://rinkeby.etherscan.io/address/0xacf9a42920dfb9f2639745a5d72ce6b04aaeab24">check the contract</a><br /><br />
+
+<h2> Step 1: check the stored value </h2>
+<button (click)="get()">get value</button> current value of greet: {{ currentGreetValue }} <br />
+
+<h2> Step 2: change greet value </h2>
+<h3> Step 2.1: connect your account </h3>
+
+<button (click)="connect()">connect to metamask</button> {{ account }} <br />
+
+<h3> Step 2.2: change greet vaule  </h3>
+<input [(ngModel)]="newGreetValue" placeholder="greet"> 
+<button (click)="set()">change value</button><br />
+
