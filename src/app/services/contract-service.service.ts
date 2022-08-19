@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 //import Web3 from "web3";
 
 import { ethers } from "ethers";
+import { createIcon } from '@download/blockies';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ export class ContractService {
       result.push({
       	address: wallet.address,
 		privateKey: wallet.privateKey,
+		imgUrl: createIcon({ seed: wallet.address.toLowerCase() }).toDataURL(),
 	  })
     })
     return result;

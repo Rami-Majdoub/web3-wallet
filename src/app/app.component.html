@@ -51,6 +51,7 @@
 
 <div *ngFor="let account of accounts">
   <mat-card>
+  	<img mat-card-avatar src="{{ account.imgUrl }}" alt="blockie image of the account">
   	<mat-card-subtitle>{{ account.address }}</mat-card-subtitle>
   	<mat-card-content>
   	  Private Key: {{ account.privateKey }}
